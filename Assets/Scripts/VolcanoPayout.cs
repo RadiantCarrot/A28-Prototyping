@@ -29,11 +29,16 @@ public class VolcanoPayout : MonoBehaviour
     public Slider payoutSlider;
     public TMP_Text payoutText;
 
+    public GameObject VolcanoParticles;
+
+
     // Start is called before the first frame update
     void Start()
     {
         startingPMult = payoutMult;
         payoutIncrementCurrent = payoutIncrementInitial;
+
+        payoutText.text = "Payout: P" + payoutAmount.ToString("F2");
     }
 
     // Update is called once per frame
@@ -71,6 +76,8 @@ public class VolcanoPayout : MonoBehaviour
             payoutAmount = betAmount;
             walletAmount -= betAmount;
             walletText.text = "Wallet: P" + walletAmount.ToString();
+            VolcanoParticles.SetActive(true);
+            VolcanoParticles.GetComponent<ParticleSystem>().Play();
             lockPayout = false; // start payout counter
         }
     }
@@ -82,6 +89,12 @@ public class VolcanoPayout : MonoBehaviour
         BetSlider.interactable = true;
         BetButton.interactable = true;
         CashOutButton.interactable = false;
+        VolcanoParticles.SetActive(false);
+
+        var ps = VolcanoParticles.GetComponent<ParticleSystem>();
+        var emission = ps.emission;
+        float currentRate = emission.rateOverTime.constant;
+        emission.rateOverTime = currentRate / 4f;
 
         walletAmount += payoutAmount;
     }
@@ -98,5 +111,11 @@ public class VolcanoPayout : MonoBehaviour
         payoutMult = startingPMult;
         payoutSlider.value = 0;
         payoutAmount = 0;
+        payoutText.text = "Payout: P" + payoutAmount.ToString("F2");
+
+        var ps = VolcanoParticles.GetComponent<ParticleSystem>();
+        var emission = ps.emission;
+        float currentRate = emission.rateOverTime.constant;
+        emission.rateOverTime = currentRate / 4f;
     }
 }

@@ -11,6 +11,9 @@ public class VolcanoTimer : MonoBehaviour
     public VolcanoPayout VolcanoPayout;
 
     public GameObject Vignette;
+    public GameObject VolcanoParticles;
+    public bool threshold1 = true;
+    public bool threshold2 = true;
 
 
     // Start is called before the first frame update
@@ -36,11 +39,31 @@ public class VolcanoTimer : MonoBehaviour
             c.a = t;
             sr.color = c;
 
+            if (t >= 0.75f && threshold2 == true)
+            {
+                var ps = VolcanoParticles.GetComponent<ParticleSystem>();
+                var emission = ps.emission;
+                float currentRate = emission.rateOverTime.constant;
+                emission.rateOverTime = currentRate * 2f;
+                threshold2 = false;
+            }
+            else if (t >= 0.50f && threshold1 == true)
+            {
+                var ps = VolcanoParticles.GetComponent<ParticleSystem>();
+                var emission = ps.emission;
+                float currentRate = emission.rateOverTime.constant;
+                emission.rateOverTime = currentRate * 2f;
+                threshold1 = false;
+            }
+
             if (explodeTime <= 0)
             {
                 VolcanoPayout.StopEverything();
                 FindObjectOfType<CameraShake>().TriggerShake(0.5f, 0.2f);
                 isExploding = false;
+                VolcanoParticles.GetComponent<ParticleSystem>().Stop();
+                threshold2 = true;
+                threshold1 = true;
             }
         }
     }
