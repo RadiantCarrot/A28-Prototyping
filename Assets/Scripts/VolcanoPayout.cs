@@ -52,7 +52,7 @@ public class VolcanoPayout : MonoBehaviour
                     payoutCounter ++;
                     payoutAdditional = payoutCounter * payoutMult;
 
-                    payoutSlider.value = payoutAdditional;
+                    payoutSlider.value = payoutAdditional * 2;
                     payoutAmount += payoutAdditional;
                     payoutText.text = "Payout: P" + payoutAmount.ToString("F2");
                 }
