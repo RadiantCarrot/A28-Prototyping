@@ -21,7 +21,8 @@ public class VolcanoPayout : MonoBehaviour
     private float payoutIncrementCurrent;
 
     private float payoutCounter = 1;
-    public float payoutMult = 0.25f;
+    public float payoutMult;
+    public TMP_Text multText;
     private float startingPMult;
 
     public float payoutAdditional;
@@ -39,6 +40,7 @@ public class VolcanoPayout : MonoBehaviour
         payoutIncrementCurrent = payoutIncrementInitial;
 
         payoutText.text = "Payout: P" + payoutAmount.ToString("F2");
+        multText.text = "Multiplier: " + payoutMult.ToString("F1") + "x";
     }
 
     // Update is called once per frame
@@ -97,6 +99,7 @@ public class VolcanoPayout : MonoBehaviour
         emission.rateOverTime = currentRate / 4f;
 
         walletAmount += payoutAmount;
+        walletText.text = "Wallet: P" + walletAmount.ToString();
     }
 
     public void StopEverything()

@@ -15,6 +15,8 @@ public class VolcanoTimer : MonoBehaviour
     public bool threshold1 = true;
     public bool threshold2 = true;
 
+    public GameObject ExplodeParticles;
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,9 +64,23 @@ public class VolcanoTimer : MonoBehaviour
                 FindObjectOfType<CameraShake>().TriggerShake(0.5f, 0.2f);
                 isExploding = false;
                 VolcanoParticles.GetComponent<ParticleSystem>().Stop();
+                ExplodeParticles.GetComponent<ParticleSystem>().Play();
                 threshold2 = true;
                 threshold1 = true;
             }
+        }
+        else
+        {
+            SpriteRenderer sr = Vignette.GetComponent<SpriteRenderer>();
+            Color c = sr.color;
+            c.a -= Time.deltaTime;
+
+            if (c.a <= 0)
+            {
+                c.a = 0;
+            }
+
+            sr.color = c;
         }
     }
 
