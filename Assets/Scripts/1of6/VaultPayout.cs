@@ -125,6 +125,7 @@ public class VaultPayout : MonoBehaviour
 
     public void ResetWires()
     {
+        wireCount = 1;
         payoutAmount = 0;
         BetSlider.interactable = true;
         BetButton.interactable = true;
