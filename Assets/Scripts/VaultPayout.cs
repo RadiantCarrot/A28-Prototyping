@@ -20,6 +20,8 @@ public class VaultPayout : MonoBehaviour
 
     public float payoutAmount;
     public TMP_Text payoutText;
+    private float previousPayout;
+    public TMP_Text cutText;
 
     public int wireCount = 1;
     public float payoutMult = 0.25f;
@@ -50,7 +52,11 @@ public class VaultPayout : MonoBehaviour
     {
         if (wireCount <= payoutMultipliers.Length)
         {
+            previousPayout = payoutAmount;
             payoutAmount = betAmount * payoutMultipliers[wireCount - 1];
+
+            float payoutDifference = payoutAmount - previousPayout;
+            cutText.text = "+P" + payoutDifference.ToString("F0") + "!";
 
             if (wireCount == 5)
             {
@@ -75,6 +81,7 @@ public class VaultPayout : MonoBehaviour
             walletText.text = "Wallet: P" + walletAmount.ToString();
 
             payoutBase = betAmount;
+            previousPayout = betAmount;
         }
     }
 

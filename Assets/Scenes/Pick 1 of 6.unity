@@ -1565,6 +1565,7 @@ MonoBehaviour:
   lockPayout: 1
   payoutAmount: 0
   payoutText: {fileID: 1593333067}
+  cutText: {fileID: 0}
   wireCount: 1
   payoutMult: 0.25
   payoutBase: 0

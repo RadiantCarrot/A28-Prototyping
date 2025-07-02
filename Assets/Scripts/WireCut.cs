@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class WireCut : MonoBehaviour
 
     public VaultPayout vaultPayout;
     public bool correctWire = true;
+    public GameObject cutText;
 
     // Start is called before the first frame update
     void Start()
@@ -65,11 +67,21 @@ public class WireCut : MonoBehaviour
         {
             lockRed.SetActive(false);
             lockGreen.SetActive(true);
+            vaultPayout.cutText = cutText.GetComponent<TMP_Text>();
             vaultPayout.AddPayout();
+            StartCoroutine(MoveCutText());
         }
         else
         {
             vaultPayout.Bust();
         }
+    }
+
+    public IEnumerator MoveCutText()
+    {
+        cutText.SetActive(true);
+        cutText.transform.position = gameObject.transform.position;
+        yield return new WaitForSeconds(1f);
+        cutText.SetActive(false);
     }
 }
