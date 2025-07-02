@@ -31,6 +31,7 @@ public class VolcanoPayout : MonoBehaviour
     public TMP_Text payoutText;
 
     public GameObject VolcanoParticles;
+    public VolcanoTimer volcanoTimer;
 
 
     // Start is called before the first frame update
@@ -93,13 +94,20 @@ public class VolcanoPayout : MonoBehaviour
         CashOutButton.interactable = false;
         VolcanoParticles.SetActive(false);
 
-        var ps = VolcanoParticles.GetComponent<ParticleSystem>();
-        var emission = ps.emission;
-        float currentRate = emission.rateOverTime.constant;
-        emission.rateOverTime = currentRate / 4f;
+        //var ps = VolcanoParticles.GetComponent<ParticleSystem>();
+        //var emission = ps.emission;
+        //float currentRate = emission.rateOverTime.constant;
+        //emission.rateOverTime = currentRate / 4f;
 
         walletAmount += payoutAmount;
         walletText.text = "Wallet: P" + walletAmount.ToString();
+
+        payoutAdditional = 0;
+        payoutAmount = 0;
+        payoutCounter = 1;
+        payoutSlider.value = 0;
+        payoutText.text = "Payout: P" + payoutAmount.ToString("F2");
+        volcanoTimer.isExploding = false;
     }
 
     public void StopEverything()
@@ -115,6 +123,7 @@ public class VolcanoPayout : MonoBehaviour
         payoutSlider.value = 0;
         payoutAmount = 0;
         payoutText.text = "Payout: P" + payoutAmount.ToString("F2");
+        volcanoTimer.isExploding = false;
 
         var ps = VolcanoParticles.GetComponent<ParticleSystem>();
         var emission = ps.emission;

@@ -32,6 +32,14 @@ public class VaultPayout : MonoBehaviour
     public Button resetButton;
     public GameObject vignette;
 
+    public Animator SafeAnimator;
+    public GameObject Locks;
+    public TMP_Text safeText;
+    public TMP_Text safePayoutText;
+    public TMP_Text safe5wireText;
+    public TMP_Text safeBonusText;
+    public bool applyBonus = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +55,8 @@ public class VaultPayout : MonoBehaviour
         betAmount = (int)BetSlider.value;
         betText.text = "Bet Amount: P" + betAmount.ToString("F0");
         payoutText.text = "Payout: P" + payoutAmount.ToString("F0");
+        safeText.text = "P" + payoutAmount.ToString("F0") + "!";
+        safeBonusText.text = "+P" + betAmount.ToString("F0") + "!";
     }
     public void AddPayout()
     {
@@ -60,6 +70,8 @@ public class VaultPayout : MonoBehaviour
 
             if (wireCount == 5)
             {
+                applyBonus = true;
+                payoutAmount += betAmount;
                 CashOut();
                 betPlaced = false;
             }
@@ -98,13 +110,17 @@ public class VaultPayout : MonoBehaviour
 
     public void CashOut()
     {
-
         walletAmount += payoutAmount;
         walletText.text = "Wallet: P" + walletAmount.ToString();
-        payoutAmount = 0;
+        //payoutAmount = 0;
 
         CashOutButton.interactable = false;
         resetButton.interactable = true;
+
+        SafeAnimator.Play("SafeOpen");
+        Locks = GameObject.Find("Locks");
+        Locks.SetActive(false);
+        StartCoroutine(SafeTextDelay());
     }
 
     public void ResetWires()
@@ -116,6 +132,25 @@ public class VaultPayout : MonoBehaviour
         resetButton.interactable = false;
         betPlaced = false;
         vignette.SetActive(false);
+        applyBonus = false;
         wireRandomiser.ResetWires();
+
+        SafeAnimator.Play("SafeIdle");
+        safeText.gameObject.SetActive(false);
+        safePayoutText.gameObject.SetActive(false);
+        safeBonusText.gameObject.SetActive(false);
+        safe5wireText.gameObject.SetActive(false);
+    }
+
+    public IEnumerator SafeTextDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        safeText.gameObject.SetActive(true);
+        safePayoutText.gameObject.SetActive(true);
+        if (applyBonus == true)
+        {
+            safeBonusText.gameObject.SetActive(true);
+            safe5wireText.gameObject.SetActive(true);
+        }
     }
 }

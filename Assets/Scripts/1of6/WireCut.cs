@@ -63,17 +63,17 @@ public class WireCut : MonoBehaviour
 
     private void ConfirmAnswer()
     {
-        if (correctWire == true)
+        if (correctWire == false)
+        {
+            vaultPayout.Bust();
+        }
+        else
         {
             lockRed.SetActive(false);
             lockGreen.SetActive(true);
             vaultPayout.cutText = cutText.GetComponent<TMP_Text>();
             vaultPayout.AddPayout();
             StartCoroutine(MoveCutText());
-        }
-        else
-        {
-            vaultPayout.Bust();
         }
     }
 

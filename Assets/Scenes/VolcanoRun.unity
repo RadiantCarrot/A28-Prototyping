@@ -1336,6 +1336,7 @@ MonoBehaviour:
   payoutSlider: {fileID: 210054119}
   payoutText: {fileID: 1593333067}
   VolcanoParticles: {fileID: 1398399493}
+  volcanoTimer: {fileID: 782696660}
 --- !u!1 &999548221
 GameObject:
   m_ObjectHideFlags: 0
