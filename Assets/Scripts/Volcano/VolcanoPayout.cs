@@ -76,7 +76,7 @@ public class VolcanoPayout : MonoBehaviour
             BetButton.interactable = false;
             CashOutButton.interactable = true;
 
-            payoutAmount = betAmount;
+            //payoutAmount = betAmount;
             walletAmount -= betAmount;
             walletText.text = "Wallet: P" + walletAmount.ToString();
             VolcanoParticles.SetActive(true);
@@ -93,11 +93,6 @@ public class VolcanoPayout : MonoBehaviour
         BetButton.interactable = true;
         CashOutButton.interactable = false;
         VolcanoParticles.SetActive(false);
-
-        //var ps = VolcanoParticles.GetComponent<ParticleSystem>();
-        //var emission = ps.emission;
-        //float currentRate = emission.rateOverTime.constant;
-        //emission.rateOverTime = currentRate / 4f;
 
         walletAmount += payoutAmount;
         walletText.text = "Wallet: P" + walletAmount.ToString();
