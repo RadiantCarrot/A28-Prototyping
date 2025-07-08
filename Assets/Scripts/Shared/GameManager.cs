@@ -71,6 +71,21 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SceneManager.LoadScene("VolcanoRun");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene("Pick 1 of 6");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SceneManager.LoadScene("TreasureGrid");
+        }
     }
 
     public void RestartScene()
