@@ -66,7 +66,11 @@ public class TilePayout : MonoBehaviour
             }
         }
     }
-    public void AddPayout()
+    public void AddPayoutSmall()
+    {
+        payoutAmount += valueToAdd / 3;
+    }
+    public void AddPayoutBig()
     {
         payoutAmount += valueToAdd;
     }

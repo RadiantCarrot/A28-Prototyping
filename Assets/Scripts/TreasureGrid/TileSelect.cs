@@ -10,11 +10,13 @@ public class TileSelect : MonoBehaviour
     public GameObject objectDug;
 
     public TilePayout tilePayout;
+    public TileAssigner tileAssigner;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        tilePayout = GameObject.Find("TileController").GetComponent<TilePayout>();
+        
     }
 
     // Update is called once per frame
@@ -36,9 +38,15 @@ public class TileSelect : MonoBehaviour
 
     public void UncoverTile()
     {
-        if (tileType == 1) // treasure
+        if (tileType == 0) // treasure small
         {
-            tilePayout.AddPayout();
+            tilePayout.AddPayoutSmall();
+            tileAssigner.smallTreasureCount--;
+        }
+        if (tileType == 1) // treasure big
+        {
+            tilePayout.AddPayoutBig();
+            tileAssigner.bigTreasureCount--;
         }
         if (tileType == 2) // hole
         {
